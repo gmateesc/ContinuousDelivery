@@ -1,0 +1,202 @@
+
+
+1. Java code to run
+
+2. Compile and package
+
+3. Run CalculatorTest.class
+    3.1 Run With Maven
+    3.2 Run with java from command line
+
+---
+
+
+1. Java code to run
+-------------------
+
+  gabriel $ cd /Users/gabriel/DEV/GitHub/maven-projects/junit_maven_example
+
+  gabriel $ find . -name "*.java"
+  ./src/main/java/org/gabriel/junit/examples/Calculator.java
+  ./src/main/java/org/gabriel/junit/examples/ICalculator.java
+
+  ./src/test/java/org/gabriel/junit/examples/CalculatorTest.java
+  ./src/test/java/org/gabriel/junit/examples/ICalculatorTest.java
+
+
+where the test classes are *Test.java and are testing the classes *Calculator.java.
+
+---
+
+
+
+2. Compile and package
+----------------------
+
+
+Build:
+
+  gabriel $ cd /Users/gabriel/DEV/GitHub/maven-projects/junit_maven_example
+
+  gabriel $ mvn clean
+
+  gabriel $ mvn package
+
+  gabriel $ find . -name "*.jar"
+  ./target/junit-maven-build-run-test-0.0.1-SNAPSHOT.jar
+
+
+The result is
+
+  gabriel $ find . -name "*.class"
+  ./target/classes/org/gabriel/junit/examples/Calculator.class
+  ./target/classes/org/gabriel/junit/examples/ICalculator.class
+  ./target/test-classes/org/gabriel/junit/examples/CalculatorTest.class
+  ./target/test-classes/org/gabriel/junit/examples/ICalculatorTest.class
+
+
+
+  gabriel $ find . -name "*.jar"
+  target/junit-maven-build-run-test-0.0.1-SNAPSHOT.jar
+
+
+The test classes *Test.class are testing the classes *Calculator.class
+
+---
+
+
+
+
+3. Run CalculatorTest.class
+---------------------------
+
+
+3.1 Run With Maven
+------------------
+
+Run 
+
+   mvn [-X] test
+
+
+
+  gabriel $ mvn test
+  ...
+
+  -------------------------------------------------------
+   T E S T S
+  -------------------------------------------------------
+
+  Running org.gabriel.junit.examples.CalculatorTest
+  @Test sum()
+  @Test subtract()
+  @Test divide()
+  @Test equals()
+  Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec - in org.gabriel.junit.examples.CalculatorTest
+
+  Running org.gabriel.junit.examples.ICalculatorTest
+  @Test sum()
+  @Test equals() 
+  @Test subtract()
+  @Test divide by zero
+  @Test divide()
+  Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in org.gabriel.junit.examples.ICalculatorTest
+
+  Results :
+
+  Tests run: 9, Failures: 0, Errors: 0, Skipped: 0
+
+---
+
+
+
+3.2 Run with java from command line
+------------------------------------
+
+
+See
+
+  http://www.tutorialspoint.com/junit/junit_executing_tests.htm
+
+  Google: run junit command line
+
+
+---
+
+
+
+The class to run is under target/classes:
+
+  abriel $ ls target/classes/org/gabriel/junit/examples/Calculator.class 
+  target/classes/org/gabriel/junit/examples/Calculator.class
+
+
+Can not run it directly with
+
+  gabriel $ java -cp target/classes/ org.gabriel.junit.examples.Calculator
+
+or
+
+  gabriel $ java -cp target/classes/ org/gabriel/junit/examples/Calculator
+  Error: Main method not found in class org.gabriel.junit.examples.Calculator, please define the main method as:
+     public static void main(String[] args)
+
+
+but must run it with 
+
+  java -cp $CLASSPATH org.junit.runner.JUnitCore org/gabriel/junit/examples/Calculator
+
+
+where the CLASSPATH includes the required jars:
+
+  gabriel $ find ~/.m2 -name "junit-4*jar"
+  /Users/gabriel/.m2/repository/junit/junit/4.11/junit-4.11.jar
+
+  gabriel $ find ~/.m2 -name "hamcrest-core*jar"
+  /Users/gabriel/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+
+
+---
+
+
+Run using the .class files under target/classes and target/test-classes
+
+  gabriel $ java \
+     -cp target/classes:target/test-classes\
+  :$HOME/.m2/repository/junit/junit/4.11/junit-4.11.jar\
+  :$HOME/gabriel/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar  \
+     org.junit.runner.JUnitCore \
+       org.gabriel.junit.examples.CalculatorTest
+
+   JUnit version 4.11
+  .@Test sum()
+  .@Test subtract()
+  .@Test divide()
+  .@Test equals()
+
+  Time: 0.014
+  OK (4 tests)
+
+
+
+Run using the .class files in target/*SNAPSHOT.jar and the test classes under target/test-classes
+
+  gabriel $ java \
+    -cp target/test-classes:target/junit-maven-build-run-test-0.0.1-SNAPSHOT.jar\
+  :$HOME/.m2/repository/junit/junit/4.11/junit-4.11.jar\
+  :$HOME/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar  \
+     org.junit.runner.JUnitCore \
+       org.gabriel.junit.examples.CalculatorTest
+
+  JUnit version 4.11
+  .@Test sum()
+  .@Test subtract()
+  .@Test divide()
+  .@Test equals()
+
+  Time: 0.013
+  OK (4 tests)
+
+
+
+

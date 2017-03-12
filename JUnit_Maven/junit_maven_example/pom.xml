@@ -1,0 +1,94 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+
+	<groupId>org.gabriel.test</groupId>
+	<artifactId>junit-maven-build-run-test</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>junit_maven_example</name>
+	<url>http://maven.apache.org</url>
+
+	<packaging>jar</packaging>
+
+	
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+
+  <!-- Libraries used by the Maven plugins -->
+  <dependencies>
+
+    <!--
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+      <scope>compile</scope>
+    </dependency>
+    -->
+
+    <!-- specifying version number as [4.11] instead of 4.11 
+         means I want striclty 4.11, not another version 
+    -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>[4.11]</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+
+
+  <!-- See
+    http://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html
+    http://stackoverflow.com/questions/16723533/modify-pom-xml-to-include-jdk-compiler-version
+  -->
+  <build>
+
+    <plugins>
+
+      <!--
+      <plugin>
+          <groupId>org.apache.maven</groupId>
+          <artifactId>maven-plugin-api</artifactId>
+          <version>3.3.3</version>
+      </plugin>
+
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.7</version>
+      </plugin>
+      -->
+
+      <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-compiler-plugin</artifactId>
+         <version>3.3</version>
+         <configuration>
+            <verbose>false</verbose> 
+            <!-- Specify Java version to use -->
+            <source>1.6</source>
+            <target>1.6</target>
+         </configuration>
+      </plugin>
+
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.18.1</version>
+      </plugin>
+
+
+    </plugins>
+
+  </build>
+
+
+</project>
