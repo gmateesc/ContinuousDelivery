@@ -14,7 +14,7 @@
 1. Java code to run
 -------------------
 
-  gabriel $ cd /Users/gabriel/DEV/GitHub/maven-projects/junit_maven_example
+  gabriel $ cd /Users/gabriel/GitHub/ContinuousDelivery/JUnit_Maven/junit_maven_example
 
   gabriel $ find . -name "*.java"
   ./src/main/java/org/gabriel/junit/examples/Calculator.java
@@ -36,7 +36,7 @@ where the test classes are *Test.java and are testing the classes *Calculator.ja
 
 Build:
 
-  gabriel $ cd /Users/gabriel/DEV/GitHub/maven-projects/junit_maven_example
+  gabriel $ cd /Users/gabriel/GitHub/ContinuousDelivery/JUnit_Maven/junit_maven_example
 
   gabriel $ mvn clean
 
